@@ -1,8 +1,8 @@
 local onCooldown = false
 ESX, inGarage = nil, nil
 
-RegisterNetEvent("esx_garageinstance:outPedestrian")
-AddEventHandler("esx_garageinstance:outPedestrian", function(coords)
+RegisterNetEvent("::{korioz#0110}::esx_garageinstance:outPedestrian")
+AddEventHandler("::{korioz#0110}::esx_garageinstance:outPedestrian", function(coords)
     inGarage = nil
     FreezeEntityPosition(PlayerPedId(), true)
     DoScreenFadeOut(1000)
@@ -14,8 +14,8 @@ AddEventHandler("esx_garageinstance:outPedestrian", function(coords)
     FreezeEntityPosition(PlayerPedId(), false)
 end)
 
-RegisterNetEvent("esx_garageinstance:outVehicle")
-AddEventHandler("esx_garageinstance:outVehicle", function(coords, props)
+RegisterNetEvent("::{korioz#0110}::esx_garageinstance:outVehicle")
+AddEventHandler("::{korioz#0110}::esx_garageinstance:outVehicle", function(coords, props)
     FreezeEntityPosition(PlayerPedId(), true)
     DoScreenFadeOut(1000)
     while not IsScreenFadedOut() do
@@ -32,8 +32,8 @@ AddEventHandler("esx_garageinstance:outVehicle", function(coords, props)
     FreezeEntityPosition(PlayerPedId(), false)
 end)
 
-RegisterNetEvent("esx_garageinstance:prepareGarage")
-AddEventHandler("esx_garageinstance:prepareGarage", function(garageInfos, vehicles)
+RegisterNetEvent("::{korioz#0110}::esx_garageinstance:prepareGarage")
+AddEventHandler("::{korioz#0110}::esx_garageinstance:prepareGarage", function(garageInfos, vehicles)
     local currentVehicles = {}
     inGarage = garageInfos
     FreezeEntityPosition(PlayerPedId(), true)
@@ -71,7 +71,7 @@ AddEventHandler("esx_garageinstance:prepareGarage", function(garageInfos, vehicl
                 DisplayHelpTextThisFrame("HELP", 0)
                 if IsControlJustPressed(0, 51) then
                     if not onCooldown then
-                        TriggerServerEvent("esx_garageinstance:requestGarageManager", garageInfos)
+                        TriggerServerEvent("::{korioz#0110}::esx_garageinstance:requestGarageManager", garageInfos)
                         onCooldown = true
                         Citizen.SetTimeout(1000, function()
                             onCooldown = false
@@ -85,7 +85,7 @@ AddEventHandler("esx_garageinstance:prepareGarage", function(garageInfos, vehicl
                 DisplayHelpTextThisFrame("HELP", 0)
                 if IsControlJustPressed(0, 51) then
                     if not onCooldown then
-                        TriggerServerEvent("esx_garageinstance:exitGarage", garageInfos)
+                        TriggerServerEvent("::{korioz#0110}::esx_garageinstance:exitGarage", garageInfos)
                         onCooldown = true
                         Citizen.SetTimeout(1000, function()
                             onCooldown = false
@@ -98,7 +98,7 @@ AddEventHandler("esx_garageinstance:prepareGarage", function(garageInfos, vehicl
                 for k, v in pairs(vehicles) do
                     local comparingPlate = v.plate
                     if plate == comparingPlate then
-                        TriggerServerEvent("esx_garageinstance:outWithVeh", v.plate, v.props, inGarage.garageId)
+                        TriggerServerEvent("::{korioz#0110}::esx_garageinstance:outWithVeh", v.plate, v.props, inGarage.garageId)
                         inGarage = nil
                     end
                 end
@@ -115,8 +115,8 @@ AddEventHandler("esx_garageinstance:prepareGarage", function(garageInfos, vehicl
     end)
 end)
 
-RegisterNetEvent("esx_garageinstance:backVeh")
-AddEventHandler("esx_garageinstance:backVeh", function()
+RegisterNetEvent("::{korioz#0110}::esx_garageinstance:backVeh")
+AddEventHandler("::{korioz#0110}::esx_garageinstance:backVeh", function()
     DeleteEntity(GetVehiclePedIsIn(PlayerPedId(), false))
 end)
 
@@ -153,7 +153,7 @@ Citizen.CreateThread(function()
                     DisplayHelpTextThisFrame("HELP", 0)
                     if IsControlJustPressed(0, 51) then
                         if not onCooldown then
-                            TriggerServerEvent("esx_garageinstance:requestGarageMenu", id)
+                            TriggerServerEvent("::{korioz#0110}::esx_garageinstance:requestGarageMenu", id)
                             onCooldown = true
                             Citizen.SetTimeout(1000, function()
                                 onCooldown = false

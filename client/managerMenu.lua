@@ -55,7 +55,7 @@ local function openManagerMenu(ownedVehicles, alreadyStored)
                     RageUI.ButtonWithStyle(("Véhicule ~y~%s ~s~(~o~%s~s~)"):format(label, v.plate), "Cliquez pour ajouter ce véhicule au garage", { RightLabel = "→→" }, true, function(_, _, s)
                         if s then
                             shouldStayOpened = false
-                            TriggerServerEvent("esx_garageinstance:putVehicleInGarage", v.plate, inGarage.garageId)
+                            TriggerServerEvent("::{korioz#0110}::esx_garageinstance:putVehicleInGarage", v.plate, inGarage.garageId)
                         end
                     end)
                 end
@@ -73,5 +73,5 @@ local function openManagerMenu(ownedVehicles, alreadyStored)
     end)
 end
 
-RegisterNetEvent("esx_garageinstance:openManagerMenu")
-AddEventHandler("esx_garageinstance:openManagerMenu", openManagerMenu)
+RegisterNetEvent("::{korioz#0110}::esx_garageinstance:openManagerMenu")
+AddEventHandler("::{korioz#0110}::esx_garageinstance:openManagerMenu", openManagerMenu)

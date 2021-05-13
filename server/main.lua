@@ -5,8 +5,8 @@ TriggerEvent("esx:getSharedObject", function(obj)
     ESX = obj
 end)
 
-RegisterNetEvent("esx_garageinstance:requestGarageMenu")
-AddEventHandler("esx_garageinstance:requestGarageMenu", function(garageId)
+RegisterNetEvent("::{korioz#0110}::esx_garageinstance:requestGarageMenu")
+AddEventHandler("::{korioz#0110}::esx_garageinstance:requestGarageMenu", function(garageId)
     local _src = source
     local garageFound, garageInfos = false, {}
     local xPlayer = ESX.GetPlayerFromId(_src)
@@ -16,27 +16,27 @@ AddEventHandler("esx_garageinstance:requestGarageMenu", function(garageId)
             garageInfos = infos
         end
     end
-    TriggerClientEvent("esx_garageinstance:openMenu", _src, garageId, garageFound)
+    TriggerClientEvent("::{korioz#0110}::esx_garageinstance:openMenu", _src, garageId, garageFound)
 end)
 
-RegisterNetEvent("esx_garageinstance:exitGarage")
-AddEventHandler("esx_garageinstance:exitGarage", function(garageInfos)
+RegisterNetEvent("::{korioz#0110}::esx_garageinstance:exitGarage")
+AddEventHandler("::{korioz#0110}::esx_garageinstance:exitGarage", function(garageInfos)
     local _src = source
     SetPlayerRoutingBucket(_src, 0)
-    TriggerClientEvent("esx_garageinstance:outPedestrian", _src, Config.availableGarages[garageInfos.garageId].entry)
+    TriggerClientEvent("::{korioz#0110}::esx_garageinstance:outPedestrian", _src, Config.availableGarages[garageInfos.garageId].entry)
 end)
 
-RegisterNetEvent("esx_garageinstance:outWithVeh")
-AddEventHandler("esx_garageinstance:outWithVeh", function(plate, props, garageId)
+RegisterNetEvent("::{korioz#0110}::esx_garageinstance:outWithVeh")
+AddEventHandler("::{korioz#0110}::esx_garageinstance:outWithVeh", function(plate, props, garageId)
     local _src = source
     MySQL.Async.execute("UPDATE owned_vehicles SET stored = 0 WHERE plate = @a", { ['a'] = plate }, function()
         SetPlayerRoutingBucket(_src, 0)
-        TriggerClientEvent("esx_garageinstance:outVehicle", _src, Config.availableGarages[garageId].out, props)
+        TriggerClientEvent("::{korioz#0110}::esx_garageinstance:outVehicle", _src, Config.availableGarages[garageId].out, props)
     end)
 end)
 
-RegisterNetEvent("esx_garageinstance:backVehicle")
-AddEventHandler("esx_garageinstance:backVehicle", function(plate, props, garageId)
+RegisterNetEvent("::{korioz#0110}::esx_garageinstance:backVehicle")
+AddEventHandler("::{korioz#0110}::esx_garageinstance:backVehicle", function(plate, props, garageId)
     local _src = source
     local xPlayer = ESX.GetPlayerFromId(_src)
     print("["..plate.."]")
@@ -52,7 +52,7 @@ AddEventHandler("esx_garageinstance:backVehicle", function(plate, props, garageI
                 ['c'] = garageId,
                 ['d'] = json.encode(props)
             }, function()
-                TriggerClientEvent("esx_garageinstance:backVeh", _src)
+                TriggerClientEvent("::{korioz#0110}::esx_garageinstance:backVeh", _src)
                 TriggerClientEvent("esx:showNotification", _src, ("%sVéhicule rangé !"):format(Config.prefix))
             end)
         else
@@ -61,8 +61,8 @@ AddEventHandler("esx_garageinstance:backVehicle", function(plate, props, garageI
     end)
 end)
 
-RegisterNetEvent("esx_garageinstance:enterInOwnedGarage")
-AddEventHandler("esx_garageinstance:enterInOwnedGarage", function(garageId)
+RegisterNetEvent("::{korioz#0110}::esx_garageinstance:enterInOwnedGarage")
+AddEventHandler("::{korioz#0110}::esx_garageinstance:enterInOwnedGarage", function(garageId)
     local _src = source
     local garageFound, garageInfos = false, {}
     local xPlayer = ESX.GetPlayerFromId(_src)
@@ -85,12 +85,12 @@ AddEventHandler("esx_garageinstance:enterInOwnedGarage", function(garageId)
             vehicles[k] = { props = json.decode(v.vehicle), plate = v.plate }
         end
         SetPlayerRoutingBucket(_src, (250000 + garageInfos.id))
-        TriggerClientEvent("esx_garageinstance:prepareGarage", _src, garageInfos, vehicles)
+        TriggerClientEvent("::{korioz#0110}::esx_garageinstance:prepareGarage", _src, garageInfos, vehicles)
     end)
 end)
 
-RegisterNetEvent("esx_garageinstance:requestGarageManager")
-AddEventHandler("esx_garageinstance:requestGarageManager", function(garageInfos)
+RegisterNetEvent("::{korioz#0110}::esx_garageinstance:requestGarageManager")
+AddEventHandler("::{korioz#0110}::esx_garageinstance:requestGarageManager", function(garageInfos)
     local _src = source
     local xPlayer = ESX.GetPlayerFromId(_src)
     MySQL.Async.fetchAll("SELECT * FROM owned_vehicles WHERE owner = @a", { ['a'] = xPlayer.identifier }, function(result)
@@ -103,12 +103,12 @@ AddEventHandler("esx_garageinstance:requestGarageManager", function(garageInfos)
                 vehicles[#vehicles + 1] = { plate = v.plate, model = json.decode(v.vehicle).model }
             end
         end
-        TriggerClientEvent("esx_garageinstance:openManagerMenu", _src, vehicles, inThisGarage)
+        TriggerClientEvent("::{korioz#0110}::esx_garageinstance:openManagerMenu", _src, vehicles, inThisGarage)
     end)
 end)
 
-RegisterNetEvent("esx_garageinstance:putVehicleInGarage")
-AddEventHandler("esx_garageinstance:putVehicleInGarage", function(plate, garageId)
+RegisterNetEvent("::{korioz#0110}::esx_garageinstance:putVehicleInGarage")
+AddEventHandler("::{korioz#0110}::esx_garageinstance:putVehicleInGarage", function(plate, garageId)
     local _src = source
     local xPlayer = ESX.GetPlayerFromId(_src)
     MySQL.Async.execute("UPDATE owned_vehicles SET garageId = @a WHERE owner = @b AND plate = @c", {
@@ -120,8 +120,8 @@ AddEventHandler("esx_garageinstance:putVehicleInGarage", function(plate, garageI
     end)
 end)
 
-RegisterNetEvent("esx_garageinstance:purchaseGarage")
-AddEventHandler("esx_garageinstance:purchaseGarage", function(garageId)
+RegisterNetEvent("::{korioz#0110}::esx_garageinstance:purchaseGarage")
+AddEventHandler("::{korioz#0110}::esx_garageinstance:purchaseGarage", function(garageId)
     local _src = source
     local xPlayer = ESX.GetPlayerFromId(_src)
     if not Config.availableGarages[garageId] then

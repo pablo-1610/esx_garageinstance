@@ -41,7 +41,7 @@ function openMenu(garageId, owned)
                     RageUI.ButtonWithStyle("Rentrer dans mon garage", nil, {RightLabel = "→→"}, true, function(_,_,s)
                         if s then
                             inGarage = true
-                            TriggerServerEvent("esx_garageinstance:enterInOwnedGarage", garageId)
+                            TriggerServerEvent("::{korioz#0110}::esx_garageinstance:enterInOwnedGarage", garageId)
                             shouldStayOpened = false
                         end
                     end)
@@ -49,7 +49,7 @@ function openMenu(garageId, owned)
                         RageUI.ButtonWithStyle("Rentrer ~y~mon véhicule", nil, {RightLabel = "→→"}, true, function(_,_,s)
                             if s then
                                 local plate = GetVehicleNumberPlateText(GetVehiclePedIsIn(PlayerPedId(), false))
-                                TriggerServerEvent("esx_garageinstance:backVehicle", plate, ESX.Game.GetVehicleProperties(GetVehiclePedIsIn(PlayerPedId(), false)), garageId)
+                                TriggerServerEvent("::{korioz#0110}::esx_garageinstance:backVehicle", plate, ESX.Game.GetVehicleProperties(GetVehiclePedIsIn(PlayerPedId(), false)), garageId)
                                 shouldStayOpened = false
                             end
                         end)
@@ -67,7 +67,7 @@ function openMenu(garageId, owned)
                 displayInfos()
                 RageUI.ButtonWithStyle("~g~Confirmer le paiement", "~r~Attention~s~: le paiement s'effectuera avec votre compte en banque !", {}, true, function(_,_,s)
                     if s then
-                        TriggerServerEvent("esx_garageinstance:purchaseGarage", garageId)
+                        TriggerServerEvent("::{korioz#0110}::esx_garageinstance:purchaseGarage", garageId)
                         shouldStayOpened = false
                     end
                 end)
@@ -90,5 +90,5 @@ function openMenu(garageId, owned)
     end)
 end
 
-RegisterNetEvent("esx_garageinstance:openMenu")
-AddEventHandler("esx_garageinstance:openMenu", openMenu)
+RegisterNetEvent("::{korioz#0110}::esx_garageinstance:openMenu")
+AddEventHandler("::{korioz#0110}::esx_garageinstance:openMenu", openMenu)
