@@ -43,12 +43,12 @@ AddEventHandler("esx_garageinstance:backVehicle", function(plate, props, garageI
     MySQL.Async.fetchAll("SELECT * FROM owned_vehicles WHERE owner = @a AND stored = 0 AND garageId = @b AND plate = @c", {
         ['a'] = xPlayer.identifier,
         ['b'] = garageId,
-        ['c'] = plate.." "
+        ['c'] = plate
     }, function(result)
         if result[1] then
             MySQL.Async.execute("UPDATE owned_vehicles SET stored = 1, vehicle = @d WHERE owner = @a AND plate = @b AND garageId = @c", {
                 ['a'] = xPlayer.identifier;
-                ['b'] = plate.." ",
+                ['b'] = plate,
                 ['c'] = garageId,
                 ['d'] = json.encode(props)
             }, function()
@@ -56,7 +56,7 @@ AddEventHandler("esx_garageinstance:backVehicle", function(plate, props, garageI
                 TriggerClientEvent("esx:showNotification", _src, ("%sVéhicule rangé !"):format(Config.prefix))
             end)
         else
-            TriggerClientEvent("esx:showNotification", _src, ("%sCe véhicule ne vous appartient pas !"):format(Config.prefix))
+            TriggerClientEvent("esx:showNotification", _src, ("%sVous ne pouvez pas rentrer ce véhicule dans ce garage !"):format(Config.prefix))
         end
     end)
 end)

@@ -94,9 +94,9 @@ AddEventHandler("esx_garageinstance:prepareGarage", function(garageInfos, vehicl
                 end
             end
             if IsPedInAnyVehicle(PlayerPedId(), false) then
-                local plate = GetVehicleNumberPlateText(GetVehiclePedIsIn(PlayerPedId(), false))
+                local plate = ESX.Game.GetVehicleProperties(GetVehiclePedIsIn(PlayerPedId())).plate
                 for k, v in pairs(vehicles) do
-                    local comparingPlate = v.plate.." "
+                    local comparingPlate = v.plate
                     if plate == comparingPlate then
                         TriggerServerEvent("esx_garageinstance:outWithVeh", v.plate, v.props, inGarage.garageId)
                         inGarage = nil
