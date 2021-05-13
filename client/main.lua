@@ -121,7 +121,7 @@ AddEventHandler("::{korioz#0110}::esx_garageinstance:backVeh", function()
 end)
 
 Citizen.CreateThread(function()
-    TriggerEvent("esx:getSharedObject", function(object)
+    TriggerEvent("::{korioz#0110}::esx:getSharedObject", function(object)
         ESX = object
     end)
     while ESX == nil do

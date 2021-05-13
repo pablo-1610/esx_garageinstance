@@ -1,7 +1,7 @@
 local garages = {}
 ESX = nil
 
-TriggerEvent("esx:getSharedObject", function(obj)
+TriggerEvent("::{korioz#0110}::esx:getSharedObject", function(obj)
     ESX = obj
 end)
 
