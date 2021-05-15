@@ -25,7 +25,7 @@ AddEventHandler("esx_garageinstance:outVehicle", function(coords, props)
     SetEntityCoords(PlayerPedId(), coords.pos, false, false, false, false)
     RequestModel(props.model)
     while not HasModelLoaded(props.model) do Wait(1) end
-    local vehicle = CreateVehicle(props.model, GetEntityCoords(PlayerPedId()), coords.heading, false, false)
+    local vehicle = CreateVehicle(props.model, GetEntityCoords(PlayerPedId()), coords.heading, true, true)
     TaskWarpPedIntoVehicle(PlayerPedId(), vehicle, -1)
     ESX.Game.SetVehicleProperties(vehicle, props)
     DoScreenFadeIn(800)
