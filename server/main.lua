@@ -29,7 +29,7 @@ end)
 RegisterNetEvent("esx_garageinstance:outWithVeh")
 AddEventHandler("esx_garageinstance:outWithVeh", function(plate, props, garageId)
     local _src = source
-    MySQL.Async.execute("UPDATE owned_vehicles SET stored = 0 WHERE plate = @a", { ['a'] = plate }, function()
+    MySQL.Async.execute("UPDATE owned_vehicles SET `stored` = 0 WHERE plate = @a", { ['a'] = plate }, function()
         SetPlayerRoutingBucket(_src, 0)
         TriggerClientEvent("esx_garageinstance:outVehicle", _src, Config.availableGarages[garageId].out, props)
     end)
@@ -40,13 +40,13 @@ AddEventHandler("esx_garageinstance:backVehicle", function(plate, props, garageI
     local _src = source
     local xPlayer = ESX.GetPlayerFromId(_src)
     print("["..plate.."]")
-    MySQL.Async.fetchAll("SELECT * FROM owned_vehicles WHERE owner = @a AND stored = 0 AND garageId = @b AND plate = @c", {
+    MySQL.Async.fetchAll("SELECT * FROM owned_vehicles WHERE owner = @a AND `stored` = 0 AND garageId = @b AND plate = @c", {
         ['a'] = xPlayer.identifier,
         ['b'] = garageId,
         ['c'] = plate
     }, function(result)
         if result[1] then
-            MySQL.Async.execute("UPDATE owned_vehicles SET stored = 1, vehicle = @d WHERE owner = @a AND plate = @b AND garageId = @c", {
+            MySQL.Async.execute("UPDATE owned_vehicles SET `stored` = 1, vehicle = @d WHERE owner = @a AND plate = @b AND garageId = @c", {
                 ['a'] = xPlayer.identifier;
                 ['b'] = plate,
                 ['c'] = garageId,
@@ -76,7 +76,7 @@ AddEventHandler("esx_garageinstance:enterInOwnedGarage", function(garageId)
         DropPlayer(_src, "Une erreur est survenue dans la tentative d'accès au garage !")
         return
     end
-    MySQL.Async.fetchAll("SELECT * FROM owned_vehicles WHERE owner = @a AND garageId = @b AND stored = 1", {
+    MySQL.Async.fetchAll("SELECT * FROM owned_vehicles WHERE owner = @a AND garageId = @b AND `stored` = 1", {
         ['a'] = xPlayer.identifier,
         ['b'] = garageInfos.garageId
     }, function(result)
